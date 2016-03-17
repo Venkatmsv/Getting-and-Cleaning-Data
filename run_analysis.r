@@ -51,8 +51,6 @@ names(mergedSubject) <- "Subject"
 
 #independent tidy data set with the average of each variable for each activity and each subject.
 consolidatedData <- cbind(mergedData,mergedLabels,mergedSubject)
-#join_all(consolidatedData)
-write.table(consolidatedData, "./specdata/UCI HAR Dataset/consolidatedData.txt")
 
 distinctSubjects = unique(mergedSubject)[,"Subject"]
 noSubjects = length(unique(mergedSubject)[,"Subject"])

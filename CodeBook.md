@@ -15,4 +15,6 @@ Using the descriptive names for the activities in the merged activity data set.
 
 Appropriately name the merged data sets.
 
-Merged the above tidy dataset and create one consolidate dataset and write that as .txt file. From that tiday data, create another data set with the average of each variable for each activity and each subject.
+Merged the above tidy dataset and create one consolidate dataset. 
+
+From the above consolidated data set, create another data set called tidyFinalData with the mean of each variable for each activity and each subject and write into a text file.

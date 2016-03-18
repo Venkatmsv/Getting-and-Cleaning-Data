@@ -17,4 +17,4 @@ Unzip the file into your R root directory. In my case the data located in a fold
 
 The code flow and variables usage and steps can be found in CodeBook.md file.
 
-You can run the run_analysis.r file in order to view the get the final tidy data in averageData.txt file.
+You can run the run_analysis.r file in order to view the get the final tidy data in TidyFinalData.txt file.

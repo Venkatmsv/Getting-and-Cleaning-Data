@@ -1,6 +1,6 @@
 #reading train data set
 xtrainData <- read.table("./specdata/UCI HAR Dataset/train/X_train.txt")
-
+ 
 #reading train data set labels
 ytrainLabel <- read.table("./specdata/UCI HAR Dataset/train/y_train.txt")
 
@@ -21,9 +21,6 @@ activityLabels <- read.table("./specdata/UCI HAR Dataset/activity_labels.txt")
 
 #reading features
 features <- read.table("./specdata/UCI HAR Dataset/features.txt")
-
-#reading features info 
-featuresInfo <- read.table("./specdata/UCI HAR Dataset/features_info.txt")
 
 #merging two data sets
 mergedData <- rbind(xtrainData,xtestData)
@@ -49,22 +46,13 @@ mergedLabels[,1] <- activityLabels[mergedLabels[,1],"V2"]
 names(mergedLabels) <- "Activity"
 names(mergedSubject) <- "Subject"
 
-#independent tidy data set with the average of each variable for each activity and each subject.
+#merge all the clean data sets
 consolidatedData <- cbind(mergedData,mergedLabels,mergedSubject)
 
-distinctSubjects = unique(mergedSubject)[,"Subject"]
-noSubjects = length(unique(mergedSubject)[,"Subject"])
-noActivities = length(mergedLabels[,"Activity"])
-noCols = dim(consolidatedData)[2]
-averageData = consolidatedData[1:(noSubjects*noActivities), ]
-row = 1
-for (sub in 1:noSubjects) {
-       for (activity in 1:noActivities) {
-              averageData[row, 1] = distinctSubjects[sub]
-              averageData[row, 2] = mergedLabels[activity,"Activity"]
-              data <- consolidatedData[consolidatedData$subject==sub & consolidatedData$activity==mergedLabels[activity, "Activity"], ]
-              averageData[row, 3:noCols] <- colMeans(data[, 3:noCols])
-              row = row+1
-       }
-}
-write.table(averageData, "./specdata/UCI HAR Dataset/averageData.txt")
+##independent tidy data set with the average of each variable for each activity and each subject.
+tidyFinalData <- aggregate(consolidatedData,list(activity=consolidatedData$Activity,subject=consolidatedData$Subject),mean)
+
+#writing final tidy data into a file
+write.table(tidyFinalData, "./specdata/UCI HAR Dataset/TidyFinalData.txt")
+
+#write.table(tidyFinalData, "./specdata/TidyFinalData.txt",row.names=FALSE)
